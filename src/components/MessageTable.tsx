@@ -1,8 +1,9 @@
-import React from 'react';
-import { useMensajes } from '../hooks/useMessages';
+import React from "react";
+import { useMensajes } from "../hooks/useMessages";
 
 const MensajesTable: React.FC = () => {
   const { mensajes, loading } = useMensajes();
+  console.log("Mensajes:", mensajes);
 
   const formatFecha = (fechaISO: string): string => {
     const fecha = new Date(fechaISO);

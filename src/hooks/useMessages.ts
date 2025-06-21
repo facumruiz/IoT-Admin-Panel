@@ -1,25 +1,20 @@
-import { useEffect, useState } from 'react';
 import { getMensajes } from '../api/messages';
 import { Mensaje } from '../types/message';
+import { useQuery } from '@tanstack/react-query';
+
 
 export const useMensajes = () => {
-  const [mensajes, setMensajes] = useState<Mensaje[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data, isLoading, error } = useQuery<Mensaje[], Error>({
+    queryKey: ['mensajes'],
+    queryFn: () => getMensajes(),
+  });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getMensajes();
-        setMensajes(data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  return { mensajes, loading };
+  return {
+    mensajes: data || [],
+    loading: isLoading,
+    error: error,
+  };
 };
+
+
+
