@@ -8,6 +8,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import SensorDashboard from "../SensorDashboard/index";
 
 const SidebarMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -63,7 +64,7 @@ const SidebarMenu: React.FC = () => {
           <div
             className={`${
               isOpen ? "block" : "hidden"
-            } text-white font-bold text-xl`}
+            } text-white font-bold text-xs`}
           >
             IoT Dashboard
           </div>
@@ -164,6 +165,7 @@ const SidebarMenu: React.FC = () => {
               Active Section:{" "}
               {menuItems.find((item) => item.id === activeItem)?.label}
             </h2>
+            {/* <SensorDashboard /> */}
           </div>
         </div>
       </div>

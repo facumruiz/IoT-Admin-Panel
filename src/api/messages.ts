@@ -1,11 +1,11 @@
 // src/api/mensajes.ts
-import { Mensaje } from '../types/message';
+import { Message } from '../types/message';
 import axios from 'axios';
 
 const API_URL = 'https://api-mqtt-mongo-prod.onrender.com/api';
 
 
-export const getMensajes = async (): Promise<Mensaje[]>=> {
+export const getMensajes = async (): Promise<Message[]>=> {
   try {
     const response = await axios.get(`${API_URL}/getMessages`, {
       method: 'GET',
