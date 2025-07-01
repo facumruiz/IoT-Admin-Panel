@@ -20,7 +20,7 @@ const SidebarMenu: React.FC<SidebarProps> = ({ activeView, onViewChange }) => {
 
   const menuItems = [
     {
-      id: "messages",
+      id: "last-Messages",
       label: "Last Messages",
       icon: MessageSquare,
     },
