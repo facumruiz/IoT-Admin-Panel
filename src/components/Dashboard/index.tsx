@@ -7,11 +7,13 @@ import React from "react";
 import IoTDeviceTable from "../IoTDeviceTable";
 import { messages } from "../../assets/mockups/message"; // Import mock data for testing
 import SendMessageView from "../SendMessage/SendMessageView";
-import RecieveMessage from "../RecieveMessage";
+import RecieveMessages from "../RecieveMessages";
 
 const Dashboard: React.FC = () => {
   const [activeView, setActiveView] = useState("last-messages");
   // const { messages } = useMessages();
+
+  console.log("Messages:", messages);
 
   // Filter data based on active view
   const filteredData = useMemo(() => {
@@ -27,7 +29,7 @@ const Dashboard: React.FC = () => {
     return messages;
   }, [activeView, messages]);
 
-  // console.log("filteredData:", filteredData);
+  console.log("filteredData:", filteredData);
 
   const getViewTitle = () => {
     switch (activeView) {
@@ -102,24 +104,11 @@ const Dashboard: React.FC = () => {
               )}
             </div>
 
-            <RecieveMessage messages={filteredData} />
+            <RecieveMessages messages={filteredData} />
           </div>
         );
       default:
-        return (
-          <div>
-            <div className="flex items-center justify-between mb-6">
-              <h1 className="text-white text-xl font-bold">{getViewTitle()}</h1>
-              {activeView === "last-Messages" && (
-                <div className="text-green-400 text-sm">
-                  Showing {filteredData.length} most recent messages
-                </div>
-              )}
-            </div>
-
-            <RecieveMessage messages={filteredData} />
-          </div>
-        );
+        return <RecieveMessages messages={filteredData} />;
     }
   };
 
