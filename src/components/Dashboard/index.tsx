@@ -4,6 +4,7 @@ import { Message } from "../../types/message";
 import SensorCard from "../SensorCard";
 import SidebarMenu from "../SidebarMenu";
 import React from "react";
+import IoTDeviceTable from "../IoTDeviceTable";
 
 const Dashboard: React.FC = () => {
   const [activeView, setActiveView] = useState("last-messages");
@@ -61,7 +62,7 @@ const Dashboard: React.FC = () => {
       status: "ok",
       topic: "dispositivo/temperatura",
       timestamp: "2025-06-06T17:41:20.000Z",
-      isOnline: true,
+      isOnline: false,
       deviceName: "Sensor Temp",
     },
     {
@@ -303,19 +304,26 @@ const Dashboard: React.FC = () => {
         );
       case "all-devices":
         return (
-          <div className="flex items-center justify-between mb-6">
-            <h1 className="text-white text-3xl font-bold">{getViewTitle()}</h1>
-          </div>
+          <>
+            <div className="flex items-center justify-between mb-6">
+              <h1 className="text-white text-3xl font-bold">
+                {getViewTitle()}
+              </h1>
+            </div>
+            <div className="p-6  min-h-screen">
+              <IoTDeviceTable devices={messages} />
+            </div>
+          </>
         );
 
-      case "last-messages":
+      case "messages":
         return (
           <div>
             <div className="flex items-center justify-between mb-6">
               <h1 className="text-white text-3xl font-bold">
                 {getViewTitle()}
               </h1>
-              {activeView === "last-messages" && (
+              {activeView === "messages" && (
                 <div className="text-green-400 text-sm">
                   Showing {filteredData.length} most recent messages
                 </div>

@@ -1,28 +1,9 @@
 import React from "react";
-import {
-  Lightbulb,
-  Thermometer,
-  Droplets,
-  Wifi,
-  WifiOff,
-  Power,
-  PowerOff,
-} from "lucide-react";
+import { Wifi, WifiOff } from "lucide-react";
+import CardIcon from "../CardIcon";
+import { Sensor } from "../../types/sensor";
 
-interface SensorCardProps {
-  sensorType: "relay" | "temperature" | "humidity" | "generic";
-  title: string;
-  value: string | number;
-  unit?: string;
-  status?: "on" | "off" | "active" | "inactive";
-  topic: string;
-  timestamp: string;
-  isOnline?: boolean;
-  deviceName?: string;
-  customIcon?: React.ReactNode;
-}
-
-const SensorCard: React.FC<SensorCardProps> = ({
+const SensorCard: React.FC<Sensor> = ({
   sensorType,
   title,
   value,
@@ -34,32 +15,6 @@ const SensorCard: React.FC<SensorCardProps> = ({
   deviceName,
   customIcon,
 }) => {
-  // Icon mapping based on sensor type
-  const getIcon = () => {
-    if (customIcon) return customIcon;
-
-    switch (sensorType) {
-      case "relay":
-        return status === "on" ? (
-          <Lightbulb className="w-12 h-12 text-green-400" />
-        ) : (
-          <Lightbulb className="w-12 h-12 text-gray-500" />
-        );
-      case "temperature":
-        return <Thermometer className="w-12 h-12 text-green-400" />;
-      case "humidity":
-        return (
-          <div className="flex flex-col items-center">
-            <Droplets className="w-8 h-8 text-green-400" />
-            <Droplets className="w-6 h-6 text-green-400 -mt-2" />
-            <Droplets className="w-4 h-4 text-green-400 -mt-1" />
-          </div>
-        );
-      default:
-        return <div className="w-12 h-12 bg-green-400 rounded-full"></div>;
-    }
-  };
-
   // Status text formatting
   const getStatusText = () => {
     if (sensorType === "relay") {
@@ -70,7 +25,7 @@ const SensorCard: React.FC<SensorCardProps> = ({
 
   // Connection status indicator
   const ConnectionStatus = () => (
-    <div className="absolute top-2 right-2">
+    <div>
       {isOnline ? (
         <Wifi className="w-4 h-4 text-green-400" />
       ) : (
@@ -83,9 +38,9 @@ const SensorCard: React.FC<SensorCardProps> = ({
     <div
       className="bg-black border-green-400 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:border-green-300"
       style={{
-        overflow: "hidden", // Ensure no overflow issues
-        boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Adjust shadow to avoid black line
-        borderBottom: "none", // Explicitly remove bottom border
+        overflow: "hidden",
+        boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+        borderBottom: "none",
       }}
     >
       {/* Header */}
@@ -102,9 +57,11 @@ const SensorCard: React.FC<SensorCardProps> = ({
       </div>
 
       {/* Main Content */}
-      <div className="p-6 text-center">
+      <div className="p-6 text-center h-60">
         {/* Icon */}
-        <div className="flex justify-center mb-4">{getIcon()}</div>
+        <div className="flex justify-center mb-4">
+          {<CardIcon sensorType={sensorType} status={status} />}
+        </div>
 
         {/* Value */}
         <div className="mb-2">
@@ -125,9 +82,9 @@ const SensorCard: React.FC<SensorCardProps> = ({
 
       {/* Footer */}
       <div
-        className="bg-[#27391C] px-4 py-2"
+        className="bg-[#27391C] px-4 py-4"
         style={{
-          borderTop: "1px solid #27391C", // Ensure footer blends seamlessly
+          borderTop: "1px solid #27391C",
         }}
       >
         <div className="text-green-400 text-xs mb-1">Topic:</div>

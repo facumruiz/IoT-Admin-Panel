@@ -8,8 +8,6 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import SensorDashboard from "../Messages/index";
-import { useNavigate } from "react-router-dom";
 
 // Sidebar Component
 interface SidebarProps {
@@ -22,7 +20,7 @@ const SidebarMenu: React.FC<SidebarProps> = ({ activeView, onViewChange }) => {
 
   const menuItems = [
     {
-      id: "last-messages",
+      id: "messages",
       label: "Last Messages",
       icon: MessageSquare,
     },
