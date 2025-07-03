@@ -5,7 +5,7 @@ import SensorCard from "../SensorCard";
 interface RecieveMessagesProps {
   messages: Message[];
 }
-const RecieveMessages: React.FC<RecieveMessagesProps> = ({ messages }) => {
+const RecievedMessages: React.FC<RecieveMessagesProps> = ({ messages }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {messages.map((sensor: Message) => (
@@ -21,7 +21,7 @@ const RecieveMessages: React.FC<RecieveMessagesProps> = ({ messages }) => {
           title={sensor.title}
           value={sensor.value}
           unit={sensor.unit}
-          status={sensor.status as "on" | "off" | "active" | "inactive"}
+          status={sensor.status}
           topic={sensor.topic}
           timestamp={new Date(sensor.timestamp).toLocaleString()}
           isOnline={sensor.isOnline}
@@ -32,4 +32,4 @@ const RecieveMessages: React.FC<RecieveMessagesProps> = ({ messages }) => {
   );
 };
 
-export default RecieveMessages;
+export default RecievedMessages;

@@ -1,17 +1,17 @@
+import React from "react";
 import { useMemo, useState } from "react";
 import { useMessages } from "../../hooks/useMessages";
-import { Message } from "../../types/message";
-import SensorCard from "../SensorCard";
 import SidebarMenu from "../SidebarMenu";
-import React from "react";
 import IoTDeviceTable from "../IoTDeviceTable";
-import { messages } from "../../assets/mockups/message"; // Import mock data for testing
 import SendMessageView from "../SendMessage/SendMessageView";
-import RecieveMessages from "../RecieveMessages";
+import RecievedMessages from "../RecieveMessages";
+import SettingsView from "../SettingsView";
+import { messages } from "../../assets/mockups/message";
+import Loader from "../commons/Loader";
 
 const Dashboard: React.FC = () => {
   const [activeView, setActiveView] = useState("last-messages");
-  // const { messages } = useMessages();
+  const { messages, loading, error } = useMessages();
 
   console.log("Messages:", messages);
 
@@ -56,12 +56,13 @@ const Dashboard: React.FC = () => {
         );
 
       case "settings":
-        return;
+        return <SettingsView />;
+
       case "logout":
         // Handle logout logic here
         return (
           <div className="text-center">
-            <h2 className="text-white text-2xl font-bold mb-4">Logout</h2>
+            <h2 className="text-white  text-2xl font-bold mb-4">Logout</h2>
             <p className="text-gray-300 mb-6">
               Are you sure you want to logout?
             </p>
@@ -82,7 +83,7 @@ const Dashboard: React.FC = () => {
         return (
           <>
             <div className="flex items-center justify-between mb-6">
-              <h1 className="text-white text-3xl font-bold">
+              <h1 className="text-white text-2xl font-bold">
                 {getViewTitle()}
               </h1>
             </div>
@@ -96,7 +97,9 @@ const Dashboard: React.FC = () => {
         return (
           <div>
             <div className="flex items-center justify-between mb-6">
-              <h1 className="text-white text-xl font-bold">{getViewTitle()}</h1>
+              <h1 className="text-white  text-2xl font-bold">
+                {getViewTitle()}
+              </h1>
               {activeView === "last-Messages" && (
                 <div className="text-green-400 text-sm">
                   Showing {filteredData.length} most recent messages
@@ -104,11 +107,11 @@ const Dashboard: React.FC = () => {
               )}
             </div>
 
-            <RecieveMessages messages={filteredData} />
+            <RecievedMessages messages={filteredData} />
           </div>
         );
       default:
-        return <RecieveMessages messages={filteredData} />;
+        return <RecievedMessages messages={filteredData} />;
     }
   };
 
@@ -123,6 +126,7 @@ const Dashboard: React.FC = () => {
         }}
       >
         <div className="p-8 max-w-7xl mx-auto">{renderContent()}</div>
+        {loading && <Loader />}
       </div>
     </div>
   );

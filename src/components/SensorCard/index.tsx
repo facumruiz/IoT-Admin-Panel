@@ -6,7 +6,7 @@ import { Sensor } from "../../types/sensor";
 const SensorCard: React.FC<Sensor> = ({
   sensorType,
   title,
-  value,
+  value = "",
   unit = "",
   status,
   topic,
