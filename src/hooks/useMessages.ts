@@ -1,4 +1,4 @@
-import { getMensajes } from '../api/messages';
+import { getMessages } from '../api/getMessages';
 import { Message } from '../types/message';
 import { useQuery } from '@tanstack/react-query';
 
@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 export const useMessages = () => {
   const { data, isLoading, error } = useQuery<Message[], Error>({
     queryKey: ['mensajes'],
-    queryFn: () => getMensajes(),
+    queryFn: () => getMessages(),
   });
 
   return {

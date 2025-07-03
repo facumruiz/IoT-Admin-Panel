@@ -3,11 +3,14 @@ import TopicInput from "../TopicInput";
 import MessageTypeSelector from "../MessageTypeSelector";
 import MessageInput from "../MessageInput";
 import QuickCommands from "../QuickCommands";
+import { usePostMessage } from "../../../hooks/usePostMessage";
 
 const SendMessageView: React.FC = () => {
   const [topic, setTopic] = useState("");
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("text");
+  const { postMessage, isLoading, isSuccess, isError, error, response } =
+    usePostMessage();
 
   const handleSendMessage = () => {
     if (!topic || !message) {
@@ -15,15 +18,21 @@ const SendMessageView: React.FC = () => {
       return;
     }
 
-    // Here you would implement your MQTT publishing logic
-    console.log("Sending message:", { topic, message, messageType });
-    alert(`Message sent to ${topic}: ${message}`);
-
-    // Clear form
-    setTopic("");
-    setMessage("");
+    postMessage(
+      { topic, message },
+      {
+        onSuccess: (topic, message) => {
+          alert(`Message sent successfully to ${topic}: ${message}`);
+          setTopic("");
+          setMessage("");
+        },
+        onError: (err) => {
+          console.error("Failed to send message:", err);
+          alert("Failed to send the message. Please try again.");
+        },
+      }
+    );
   };
-
   return (
     <div className="max-w-2xl mx-auto">
       <h2 className="text-white text-2xl font-bold mb-6">
@@ -45,6 +54,7 @@ const SendMessageView: React.FC = () => {
           >
             Send Message
           </button>
+          {response && <h1>{response}</h1>}
         </div>
       </div>
 
