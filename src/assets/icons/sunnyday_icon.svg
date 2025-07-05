@@ -1,0 +1,19 @@
+<svg width="150" height="150" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_2_197)">
+<path d="M92.675 92.675C95.0627 90.3688 96.9673 87.6102 98.2775 84.5601C99.5877 81.51 100.277 78.2295 100.306 74.91C100.335 71.5906 99.7025 68.2986 98.4455 65.2262C97.1885 62.1538 95.3322 59.3625 92.9849 57.0151C90.6375 54.6678 87.8462 52.8115 84.7738 51.5545C81.7014 50.2975 78.4094 49.6649 75.0899 49.6938C71.7705 49.7226 68.49 50.4123 65.4399 51.7225C62.3898 53.0327 59.6312 54.9373 57.325 57.325C52.771 62.0401 50.2512 68.3551 50.3081 74.91C50.3651 81.465 52.9943 87.7353 57.6295 92.3705C62.2647 97.0057 68.535 99.6349 75.0899 99.6919C81.6449 99.7488 87.9599 97.229 92.675 92.675Z" stroke="#2DD843" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M39.6438 110.356L30.8063 119.194" stroke="#2DD843" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M39.6438 39.6437L30.8063 30.8062" stroke="#2DD843" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M110.356 39.6437L119.194 30.8062" stroke="#2DD843" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M110.356 110.356L119.194 119.194" stroke="#2DD843" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M25 75H12.5" stroke="#2DD843" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M75 25V12.5" stroke="#2DD843" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M125 75H137.5" stroke="#2DD843" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M75 125V137.5" stroke="#2DD843" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_2_197">
+<rect width="150" height="150" fill="white"/>
+</clipPath> 
+</defs>
+</svg>
+<!-- End of sunnyday_icon.svg -->   
