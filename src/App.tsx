@@ -1,10 +1,8 @@
 // filepath: /F:/coding/frontend/IoT-Admin-Panel/src/App.tsx
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Messages from "./components/Messages";
 import React from "react";
 import Layout from "./components/commons/Layout";
 import Devices from "./components/IoTDeviceTable";
-import Dashboard from "./components/Dashboard/Dashboard";
 import Home from "./pages/home";
 // import AllDevices from "./components/AllDevices";
 // import SendMessage from "./components/SendMessage";

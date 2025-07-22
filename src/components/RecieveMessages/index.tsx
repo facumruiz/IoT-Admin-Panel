@@ -18,7 +18,7 @@ const RecievedMessages: React.FC<RecieveMessagesProps> = ({ messages }) => {
               | "humidity"
               | "generic"
           }
-          title={sensor.title}
+          title={sensor.title ? sensor.title : "No Title"}
           value={sensor.value}
           unit={sensor.unit}
           status={sensor.status}

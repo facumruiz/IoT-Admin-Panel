@@ -6,30 +6,23 @@ import IoTDeviceTable from "../IoTDeviceTable";
 import SendMessageView from "../SendMessage/SendMessageView";
 import RecievedMessages from "../RecieveMessages";
 import SettingsView from "../SettingsView";
-import { messages } from "../../assets/mockups/message";
 import Loader from "../commons/Loader";
+import { useDashboardContext } from "../../context/DashboardContext";
+import FilterButtons from "../commons/FilterButtons";
 
 const Dashboard: React.FC = () => {
-  const [activeView, setActiveView] = useState("last-messages");
-  const { messages, loading, error } = useMessages();
+  const { activeView, setActiveView, filters, setFilters } =
+    useDashboardContext();
+
+  const updateFilter = (key: string | number, value: string | number) => {
+    setFilters({ ...filters, [key]: value });
+  };
+  const { messages, pagination, loading, error } = useMessages({
+    topic: filters.topic,
+    sensorType: filters.sensorType,
+  });
 
   console.log("Messages:", messages);
-
-  // Filter data based on active view
-  const filteredData = useMemo(() => {
-    if (activeView === "last-messages") {
-      // Sort messages by timestamp in descending order and take the last 10
-      return messages
-        .sort(
-          (a, b) =>
-            new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-        )
-        .slice(0, 10);
-    }
-    return messages;
-  }, [activeView, messages]);
-
-  console.log("filteredData:", filteredData);
 
   const getViewTitle = () => {
     switch (activeView) {
@@ -59,10 +52,9 @@ const Dashboard: React.FC = () => {
         return <SettingsView />;
 
       case "logout":
-        // Handle logout logic here
         return (
           <div className="text-center">
-            <h2 className="text-white  text-2xl font-bold mb-4">Logout</h2>
+            <h2 className="text-white text-2xl font-bold mb-4">Logout</h2>
             <p className="text-gray-300 mb-6">
               Are you sure you want to logout?
             </p>
@@ -79,6 +71,7 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
         );
+
       case "all-devices":
         return (
           <>
@@ -87,31 +80,47 @@ const Dashboard: React.FC = () => {
                 {getViewTitle()}
               </h1>
             </div>
-            <div className="p-6  min-h-screen">
+            <div className="p-6 min-h-screen">
               <IoTDeviceTable devices={messages} />
             </div>
           </>
         );
 
-      case "last-Messages":
+      case "last-messages":
         return (
           <div>
             <div className="flex items-center justify-between mb-6">
-              <h1 className="text-white  text-2xl font-bold">
+              <h1 className="text-white text-2xl font-bold">
                 {getViewTitle()}
               </h1>
-              {activeView === "last-Messages" && (
+              {activeView === "last-messages" && (
                 <div className="text-green-400 text-sm">
-                  Showing {filteredData.length} most recent messages
+                  Showing {messages.length} most recent messages
                 </div>
               )}
             </div>
-
-            <RecievedMessages messages={filteredData} />
+            <FilterButtons filters={filters} updateFilter={updateFilter} />;
+            <RecievedMessages messages={messages} />
           </div>
         );
+
       default:
-        return <RecievedMessages messages={filteredData} />;
+        return (
+          <div>
+            <div className="flex items-center justify-between mb-6">
+              <h1 className="text-white text-2xl font-bold">
+                {getViewTitle()}
+              </h1>
+              {activeView === "last-messages" && (
+                <div className="text-green-400 text-sm">
+                  Showing {messages.length} most recent messages
+                </div>
+              )}
+            </div>
+            <FilterButtons filters={filters} updateFilter={updateFilter} />;
+            <RecievedMessages messages={messages} />
+          </div>
+        );
     }
   };
 

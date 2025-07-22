@@ -1,6 +1,7 @@
 import React from "react";
 import { Wifi, WifiOff, Zap, Thermometer, Droplet, Box } from "lucide-react";
 import { Sensor } from "../../types/sensor";
+import { PaginatedMessages } from "../../types/message";
 
 interface IoTDeviceTableProps {
   devices: Sensor[];
@@ -104,7 +105,7 @@ const IoTDeviceTable: React.FC<IoTDeviceTableProps> = ({ devices }) => {
             </tr>
           </thead>
           <tbody className="divide-y divide-green-400">
-            {devices.map((device, index) => (
+            {devices?.map((device, index) => (
               <tr
                 key={index}
                 className="hover:bg-green-900 hover:bg-opacity-20 transition-colors duration-200"
@@ -113,7 +114,10 @@ const IoTDeviceTable: React.FC<IoTDeviceTableProps> = ({ devices }) => {
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center">
                     <div className="flex-shrink-0 h-8 w-8 flex items-center justify-center">
-                      {getDeviceIcon(device.sensorType)}
+                      {getDeviceIcon(
+                        device.sensorType || "generic",
+                        device.customIcon
+                      )}
                     </div>
                     <div className="ml-4">
                       <div className="text-sm font-medium text-white">
