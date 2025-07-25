@@ -8,10 +8,15 @@ import SettingsView from "../SettingsView";
 import Loader from "../commons/Loader";
 import { useDashboardContext } from "../../context/DashboardContext";
 import FilterButtons from "../commons/FilterButtons";
+import Pagination from "../commons/Pagination";
 
 const Dashboard: React.FC = () => {
   const { activeView, setActiveView, filters, setFilters } =
     useDashboardContext();
+
+  const handlePageChange = (newPage: number) => {
+    setFilters({ ...filters, page: newPage });
+  };
 
   const updateFilter = (filterType: "topic" | "sensorType", value: string) => {
     setFilters({
@@ -21,9 +26,7 @@ const Dashboard: React.FC = () => {
     });
   };
 
-  const { messages, pagination, loading, error } = useMessages(filters);
-
-  console.log("Messages:", messages);
+  // const { messages, pagination, loading, error } = useMessages(filters);
 
   const getViewTitle = () => {
     switch (activeView) {
@@ -39,6 +42,12 @@ const Dashboard: React.FC = () => {
         return "Last Messages";
     }
   };
+
+  const { messages, pagination, loading, error } = useMessages({
+    ...filters,
+    page: filters.page || 1,
+    limit: filters.limit || 10,
+  });
 
   const renderContent = () => {
     switch (activeView) {
@@ -82,7 +91,11 @@ const Dashboard: React.FC = () => {
               </h1>
             </div>
             <div className="p-6 min-h-screen">
-              <IoTDeviceTable devices={messages} />
+              <IoTDeviceTable
+                devices={messages}
+                pagination={pagination}
+                loading={loading}
+              />
             </div>
           </>
         );
@@ -114,12 +127,17 @@ const Dashboard: React.FC = () => {
               </h1>
               {activeView === "last-messages" && (
                 <div className="text-green-400 text-sm">
-                  Showing {messages.length} most recent messages
+                  Showing {messages.length} of {pagination.total} messages
                 </div>
               )}
             </div>
             <FilterButtons filters={filters} updateFilter={updateFilter} />;
             <RecievedMessages messages={messages} />
+            <Pagination
+              currentPage={pagination.page}
+              totalPages={pagination.totalPages}
+              onPageChange={handlePageChange}
+            />
           </div>
         );
     }

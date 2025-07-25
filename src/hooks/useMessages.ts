@@ -18,8 +18,8 @@ export const useMessages = (params?: UseMessagesParams) => {
   const fetchMessages = useCallback(() => getMessages(params), [params]);
 
   const { data, isLoading, error } = useQuery<PaginatedMessages, Error>({
-    queryKey: ['mensajes', params], // Include params in the queryKey for caching
-    queryFn: fetchMessages, // Use the memoized function
+    queryKey: ['mensajes', params], 
+    queryFn: fetchMessages, 
     refetchOnWindowFocus: false,
   });
 
