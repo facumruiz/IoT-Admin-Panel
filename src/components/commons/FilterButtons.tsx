@@ -2,7 +2,7 @@ import React from "react";
 
 interface FilterButtonsProps {
   filters: { topic?: string; sensorType?: string };
-  updateFilter: (key: string | number, value: string | number) => void;
+  updateFilter: (filterType: "topic" | "sensorType", value: string) => void;
 }
 
 const FilterButtons: React.FC<FilterButtonsProps> = ({
@@ -15,40 +15,48 @@ const FilterButtons: React.FC<FilterButtonsProps> = ({
     "dispositivo/relay2",
   ];
 
-  const sensorList = ["temperatura", "relay", "humedad"];
+  const sensorList = ["temperature", "relays", "humidity"];
+
+  const clearFilters = () => {
+    updateFilter("topic", ""); // This will clear both through the Dashboard's updateFilter
+  };
 
   return (
     <div className="flex gap-4 mb-6">
+      {/* Topic filters */}
+
       {topics?.map((topic) => (
         <button
           key={topic}
           onClick={() => updateFilter("topic", topic)}
           className={`px-4 py-2 rounded-md ${
             filters.topic === topic
-              ? "bg-green-600 text-white"
-              : "bg-gray-600 text-gray-300"
-          } hover:bg-green-700 transition-colors`}
+              ? "border-emerald-600 border-2 text-white"
+              : "border-gray-600 border-2 text-gray-300"
+          } hover:bg-green-600 hover:text-white transition-colors`}
         >
           {topic}
         </button>
       ))}
 
+      {/* Sensor type filters */}
       {sensorList?.map((sensor) => (
         <button
           key={sensor}
-          onClick={() => updateFilter("topic", sensor)}
-          className={`px-4 py-2 rounded-md ${
+          onClick={() => updateFilter("sensorType", sensor)}
+          className={`px-4 py-2  rounded-md ${
             filters.sensorType === sensor
-              ? "bg-green-600 text-white"
-              : "bg-gray-600 text-gray-300"
-          } hover:bg-green-700 transition-colors`}
+              ? "border-emerald-600 border-2 text-white"
+              : "border-gray-600 border-2 text-gray-300"
+          } hover:bg-green-600 hover:text-white transition-colors`}
         >
           {sensor}
         </button>
       ))}
+
       <button
-        onClick={() => updateFilter("topic", "")} // Clear filter
-        className="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 transition-colors"
+        onClick={clearFilters}
+        className="px-4 py-2 rounded-md border-gray-600 border-2 text-white hover:bg-red-700 transition-colors"
       >
         Clear Filter
       </button>

@@ -1,5 +1,4 @@
 import React from "react";
-import { useMemo, useState } from "react";
 import { useMessages } from "../../hooks/useMessages";
 import SidebarMenu from "../SidebarMenu";
 import IoTDeviceTable from "../IoTDeviceTable";
@@ -14,13 +13,15 @@ const Dashboard: React.FC = () => {
   const { activeView, setActiveView, filters, setFilters } =
     useDashboardContext();
 
-  const updateFilter = (key: string | number, value: string | number) => {
-    setFilters({ ...filters, [key]: value });
+  const updateFilter = (filterType: "topic" | "sensorType", value: string) => {
+    setFilters({
+      ...filters,
+      topic: filterType === "topic" ? value : "", // Clear topic if selecting sensorType
+      sensorType: filterType === "sensorType" ? value : "", // Clear sensorType if selecting topic
+    });
   };
-  const { messages, pagination, loading, error } = useMessages({
-    topic: filters.topic,
-    sensorType: filters.sensorType,
-  });
+
+  const { messages, pagination, loading, error } = useMessages(filters);
 
   console.log("Messages:", messages);
 
