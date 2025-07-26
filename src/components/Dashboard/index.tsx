@@ -1,11 +1,11 @@
 import React from "react";
-import { useMessages } from "../../hooks/useMessages";
 import SidebarMenu from "../SidebarMenu";
 import IoTDeviceTable from "../IoTDeviceTable";
 import SendMessageView from "../SendMessage/SendMessageView";
 import RecievedMessages from "../RecieveMessages";
 import SettingsView from "../SettingsView";
 import Loader from "../commons/Loader";
+import { useMessages } from "../../hooks/useMessages";
 import { useDashboardContext } from "../../context/DashboardContext";
 import FilterButtons from "../commons/FilterButtons";
 import Pagination from "../commons/Pagination";
@@ -13,6 +13,12 @@ import Pagination from "../commons/Pagination";
 const Dashboard: React.FC = () => {
   const { activeView, setActiveView, filters, setFilters } =
     useDashboardContext();
+
+  const { messages, pagination, loading, error } = useMessages({
+    ...filters,
+    page: filters.page || 1,
+    limit: filters.limit || 10,
+  });
 
   const handlePageChange = (newPage: number) => {
     setFilters({ ...filters, page: newPage });
@@ -25,8 +31,6 @@ const Dashboard: React.FC = () => {
       sensorType: filterType === "sensorType" ? value : "", // Clear sensorType if selecting topic
     });
   };
-
-  // const { messages, pagination, loading, error } = useMessages(filters);
 
   const getViewTitle = () => {
     switch (activeView) {
@@ -42,12 +46,6 @@ const Dashboard: React.FC = () => {
         return "Last Messages";
     }
   };
-
-  const { messages, pagination, loading, error } = useMessages({
-    ...filters,
-    page: filters.page || 1,
-    limit: filters.limit || 10,
-  });
 
   const renderContent = () => {
     switch (activeView) {

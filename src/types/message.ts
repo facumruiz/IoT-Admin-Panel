@@ -8,7 +8,7 @@ export interface Message {
   timestamp: string; 
   isOnline?: boolean;
   deviceName?: string; 
-  unit?: string; // Optional unit field
+  unit?: string; 
 }
 
 export interface PaginatedMessages {
@@ -17,5 +17,17 @@ export interface PaginatedMessages {
   total: number;
   totalPages: number;
   data: Message[];
+}
+
+export interface Paginatation {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+}
+
+
+export interface Status {
+  status: string;
 }
 

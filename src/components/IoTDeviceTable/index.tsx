@@ -9,13 +9,13 @@ import {
   Loader,
 } from "lucide-react";
 import { Sensor } from "../../types/sensor";
-import { PaginatedMessages } from "../../types/message";
+import { Paginatation } from "../../types/message";
 import Pagination from "../commons/Pagination";
 import { useDashboardContext } from "../../context/DashboardContext";
 
 interface IoTDeviceTableProps {
   devices: Sensor[];
-  pagination?: PaginatedMessages;
+  pagination?: Paginatation;
   loading?: boolean;
 }
 

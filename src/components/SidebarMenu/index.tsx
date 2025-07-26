@@ -8,6 +8,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import { useSystemStatus } from "../../hooks/useSystemStatus";
 
 // Sidebar Component
 interface SidebarProps {
@@ -17,7 +18,8 @@ interface SidebarProps {
 
 const SidebarMenu: React.FC<SidebarProps> = ({ activeView, onViewChange }) => {
   const [isOpen, setIsOpen] = useState(true);
-
+  const { status: status, statusLoading: statusLoading } = useSystemStatus();
+  console.log("status", status);
   const menuItems = [
     {
       id: "last-Messages",
@@ -142,7 +144,7 @@ const SidebarMenu: React.FC<SidebarProps> = ({ activeView, onViewChange }) => {
               className="w-2 h-2 rounded-full"
               style={{ backgroundColor: "#2DD843" }}
             ></div>
-            <span>Online</span>
+            <span>{status?.status}</span>
           </div>
         </div>
       </div>
