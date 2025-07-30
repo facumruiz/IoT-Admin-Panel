@@ -4,7 +4,7 @@ import { PostMessage } from '../types/postMessages';
 
 export const usePostMessage = () => {
   const mutation = useMutation({
-    mutationFn: (state: PostMessage) => postMessages(state),
+    mutationFn: (messageData: PostMessage) => postMessages(messageData),
   });
 
   return {
@@ -16,3 +16,5 @@ export const usePostMessage = () => {
     response:mutation.data as string | undefined, // Response data
   };
 };
+
+

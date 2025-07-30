@@ -20,7 +20,6 @@ interface SidebarProps {
 
 const SidebarMenu: React.FC<SidebarProps> = ({ activeView, onViewChange }) => {
   const [isOpen, setIsOpen] = useState(true);
-  const { status: status, statusLoading: statusLoading } = useSystemStatus();
   const navigate = useNavigate();
   const menuItems = [
     {
@@ -148,7 +147,6 @@ const SidebarMenu: React.FC<SidebarProps> = ({ activeView, onViewChange }) => {
               style={{ backgroundColor: "#2DD843" }}
             ></div>
             <ToogleSystem />
-            <span>{status?.status}</span>
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@ export const useMessages = (params?: UseMessagesParams) => {
   // Memoize the query function using useCallback
   const fetchMessages = useCallback(() => getMessages(params), [params]);
 
-  const { data, isLoading, error } = useQuery<PaginatedMessages, Error>({
+  const { data, isLoading, isPending, error } = useQuery<PaginatedMessages, Error>({
     queryKey: ['mensajes', params], 
     queryFn: fetchMessages, 
     refetchOnWindowFocus: false,
@@ -32,6 +32,7 @@ export const useMessages = (params?: UseMessagesParams) => {
       totalPages: data?.totalPages || 0,
     },
     loading: isLoading,
+    isPending:isPending,
     error: error,
   };
 };

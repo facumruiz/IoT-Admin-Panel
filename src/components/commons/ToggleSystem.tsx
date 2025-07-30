@@ -1,9 +1,17 @@
 import React, { useState } from "react";
 import { useActivateSystem } from "../../hooks/useActivateSystem";
+import { useSystemStatus } from "../../hooks/useSystemStatus";
+import useToast from "../../hooks/useToast";
 
 const ToggleSystem = () => {
   const { postMessage, isLoading, isPending } = useActivateSystem();
   const [isOn, setIsOn] = useState(false);
+  const { showToast } = useToast();
+  const {
+    status: status,
+    statusLoading: statusLoading,
+    refetch,
+  } = useSystemStatus();
 
   const handleToggle = async () => {
     const newState = !isOn;
@@ -14,7 +22,16 @@ const ToggleSystem = () => {
         {
           onSuccess: () => {
             setIsOn(newState);
-            alert(`System turned ${newState ? "ON" : "OFF"} successfully`);
+            refetch(); // Refresh the status after toggling
+            showToast(
+              `System turned ${newState ? "ON" : "OFF"} successfully`,
+              "success",
+              {
+                position: "bottom-right",
+                autoClose: 5000,
+                theme: "light",
+              }
+            );
           },
           onError: (err) => {
             console.error("Failed to send message:", err);
@@ -51,6 +68,7 @@ const ToggleSystem = () => {
           ></div>
         </div>
       </label>
+      <span>{status?.status}</span>
     </div>
   );
 };

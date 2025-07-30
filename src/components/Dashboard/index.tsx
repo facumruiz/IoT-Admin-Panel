@@ -13,7 +13,7 @@ import Pagination from "../commons/Pagination";
 const Dashboard: React.FC = () => {
   const { activeView, filters, setFilters } = useDashboardContext();
 
-  const { messages, pagination, loading, error } = useMessages({
+  const { messages, pagination, loading, isPending, error } = useMessages({
     ...filters,
     page: filters.page || 1,
     limit: filters.limit || 10,
@@ -81,36 +81,18 @@ const Dashboard: React.FC = () => {
             </div>
             <FilterButtons filters={filters} updateFilter={updateFilter} />;
             <RecievedMessages messages={messages} />
-            <Pagination
-              currentPage={pagination.page}
-              totalPages={pagination.totalPages}
-              onPageChange={handlePageChange}
-            />
+            {pagination && (
+              <Pagination
+                currentPage={pagination.page}
+                totalPages={pagination.totalPages}
+                onPageChange={handlePageChange}
+              />
+            )}
           </div>
         );
 
       default:
-        return (
-          <div>
-            <div className="flex items-center justify-between mb-6">
-              <h1 className="text-white text-2xl font-bold">
-                {getViewTitle()}
-              </h1>
-              {activeView === "last-messages" && (
-                <div className="text-green-400 text-sm">
-                  Showing {messages.length} of {pagination.total} messages
-                </div>
-              )}
-            </div>
-            <FilterButtons filters={filters} updateFilter={updateFilter} />;
-            <RecievedMessages messages={messages} />
-            <Pagination
-              currentPage={pagination.page}
-              totalPages={pagination.totalPages}
-              onPageChange={handlePageChange}
-            />
-          </div>
-        );
+        return;
     }
   };
 

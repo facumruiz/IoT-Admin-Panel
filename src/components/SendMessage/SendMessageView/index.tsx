@@ -4,6 +4,7 @@ import MessageTypeSelector from "../MessageTypeSelector";
 import MessageInput from "../MessageInput";
 import QuickCommands from "../QuickCommands";
 import { usePostMessage } from "../../../hooks/usePostMessage";
+import useToast from "../../../hooks/useToast";
 
 const SendMessageView: React.FC = () => {
   const [topic, setTopic] = useState("");
@@ -11,10 +12,15 @@ const SendMessageView: React.FC = () => {
   const [messageType, setMessageType] = useState("text");
   const { postMessage, isLoading, isSuccess, isError, error, response } =
     usePostMessage();
+  const { showToast } = useToast();
 
   const handleSendMessage = () => {
     if (!topic || !message) {
-      alert("Please fill in both topic and message fields");
+      showToast("Please fill in both topic and message fields", "error", {
+        position: "bottom-center",
+        autoClose: 5000,
+        theme: "light",
+      });
       return;
     }
 
@@ -22,17 +28,29 @@ const SendMessageView: React.FC = () => {
       { topic, message },
       {
         onSuccess: (topic, message) => {
-          alert(`Message sent successfully to ${topic}: ${message}`);
+          showToast(
+            `Message sent successfully to ${topic}: ${message}`,
+            "success",
+            {
+              position: "bottom-right",
+              autoClose: 5000,
+              theme: "light",
+            }
+          );
           setTopic("");
           setMessage("");
         },
         onError: (err) => {
-          console.error("Failed to send message:", err);
-          alert("Failed to send the message. Please try again.");
+          showToast(`Failed to send message: ${err}`, "error", {
+            position: "bottom-right",
+            autoClose: 5000,
+            theme: "light",
+          });
         },
       }
     );
   };
+
   return (
     <div className="flex h-screen">
       <div
