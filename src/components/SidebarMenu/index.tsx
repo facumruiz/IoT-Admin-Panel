@@ -9,6 +9,7 @@ import {
   X,
 } from "lucide-react";
 import { useSystemStatus } from "../../hooks/useSystemStatus";
+import ToogleSystem from "../commons/Toogle";
 
 // Sidebar Component
 interface SidebarProps {
@@ -144,6 +145,7 @@ const SidebarMenu: React.FC<SidebarProps> = ({ activeView, onViewChange }) => {
               className="w-2 h-2 rounded-full"
               style={{ backgroundColor: "#2DD843" }}
             ></div>
+            <ToogleSystem />
             <span>{status?.status}</span>
           </div>
         </div>
