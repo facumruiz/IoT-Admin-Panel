@@ -1,12 +1,10 @@
-// filepath: /F:/coding/frontend/IoT-Admin-Panel/src/App.tsx
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import React from "react";
 import Layout from "./components/commons/Layout";
-import Devices from "./components/IoTDeviceTable";
-import Home from "./pages/home";
-// import AllDevices from "./components/AllDevices";
-// import SendMessage from "./components/SendMessage";
-// import Settings from "./components/Settings";
+import SettingsView from "./components/SettingsView";
+import Dashboard from "./components/Dashboard";
+import SendMessageView from "./components/SendMessage/SendMessageView";
+import Logout from "./components/LogOut";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -14,7 +12,52 @@ const App = () => {
       path: "/",
       element: (
         <Layout>
-          <Home />
+          <Dashboard />
+        </Layout>
+      ),
+    },
+
+    {
+      path: "/last-messages",
+      element: (
+        <Layout>
+          <Dashboard />
+        </Layout>
+      ),
+    },
+
+    {
+      path: "/all-devices",
+      element: (
+        <Layout>
+          <Dashboard />
+        </Layout>
+      ),
+    },
+
+    {
+      path: "/settings",
+      element: (
+        <Layout>
+          <SettingsView />
+        </Layout>
+      ),
+    },
+
+    {
+      path: "/send-message",
+      element: (
+        <Layout>
+          <SendMessageView />;
+        </Layout>
+      ),
+    },
+
+    {
+      path: "/logout",
+      element: (
+        <Layout>
+          <Logout />;
         </Layout>
       ),
     },

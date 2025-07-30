@@ -34,31 +34,40 @@ const SendMessageView: React.FC = () => {
     );
   };
   return (
-    <div className="max-w-2xl mx-auto">
-      <h2 className="text-white text-2xl font-bold mb-6">
-        Send Message to Device
-      </h2>
+    <div className="flex h-screen">
+      <div
+        className="flex-1 overflow-y-auto overflow-x-hidden"
+        style={{
+          background: "linear-gradient(135deg, #0F160A 0%, #577C38 100%)",
+        }}
+      >
+        <div className="max-w-2xl mx-auto  justify-center p-8">
+          <h2 className="text-white text-2xl font-bold mb-6">
+            Send Message to Device
+          </h2>
 
-      <div className="bg-black border border-green-400 rounded-lg p-6">
-        <div className="space-y-4">
-          <TopicInput topic={topic} setTopic={setTopic} />
-          <MessageTypeSelector
-            messageType={messageType}
-            setMessageType={setMessageType}
-          />
-          <MessageInput message={message} setMessage={setMessage} />
+          <div className="bg-black border border-green-400 rounded-lg p-6">
+            <div className="space-y-4">
+              <TopicInput topic={topic} setTopic={setTopic} />
+              <MessageTypeSelector
+                messageType={messageType}
+                setMessageType={setMessageType}
+              />
+              <MessageInput message={message} setMessage={setMessage} />
 
-          <button
-            onClick={handleSendMessage}
-            className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200"
-          >
-            Send Message
-          </button>
-          {response && <h1>{response}</h1>}
+              <button
+                onClick={handleSendMessage}
+                className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200"
+              >
+                Send Message
+              </button>
+              {response && <h1>{response}</h1>}
+            </div>
+          </div>
+
+          <QuickCommands setTopic={setTopic} setMessage={setMessage} />
         </div>
       </div>
-
-      <QuickCommands setTopic={setTopic} setMessage={setMessage} />
     </div>
   );
 };

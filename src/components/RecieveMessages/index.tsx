@@ -11,13 +11,7 @@ const RecievedMessages: React.FC<RecieveMessagesProps> = ({ messages }) => {
       {messages.map((sensor: Message) => (
         <SensorCard
           key={sensor._id}
-          sensorType={
-            sensor.sensorType as
-              | "relay"
-              | "temperature"
-              | "humidity"
-              | "generic"
-          }
+          sensorType={sensor.sensorType}
           title={sensor.title ? sensor.title : "No Title"}
           value={sensor.value}
           unit={sensor.unit}

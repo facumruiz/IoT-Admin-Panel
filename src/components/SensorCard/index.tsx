@@ -4,7 +4,7 @@ import CardIcon from "../CardIcon";
 import { Sensor } from "../../types/sensor";
 
 const SensorCard: React.FC<Sensor> = ({
-  sensorType,
+  sensorType = "",
   title,
   value = "",
   unit = "",

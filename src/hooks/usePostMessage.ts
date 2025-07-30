@@ -1,10 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
-import { postActivateSystem } from '../api/postActivateSystem';
-import { PostActivate } from '../types/postMessages';
+import { postMessages } from '../api/postMessages';
+import { PostMessage } from '../types/postMessages';
 
 export const usePostMessage = () => {
   const mutation = useMutation({
-    mutationFn: (state: PostActivate) => postActivateSystem(state),
+    mutationFn: (state: PostMessage) => postMessages(state),
   });
 
   return {

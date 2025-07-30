@@ -11,8 +11,7 @@ import FilterButtons from "../commons/FilterButtons";
 import Pagination from "../commons/Pagination";
 
 const Dashboard: React.FC = () => {
-  const { activeView, setActiveView, filters, setFilters } =
-    useDashboardContext();
+  const { activeView, filters, setFilters } = useDashboardContext();
 
   const { messages, pagination, loading, error } = useMessages({
     ...filters,
@@ -49,37 +48,6 @@ const Dashboard: React.FC = () => {
 
   const renderContent = () => {
     switch (activeView) {
-      case "send-message":
-        return (
-          <div>
-            <SendMessageView />;
-          </div>
-        );
-
-      case "settings":
-        return <SettingsView />;
-
-      case "logout":
-        return (
-          <div className="text-center">
-            <h2 className="text-white text-2xl font-bold mb-4">Logout</h2>
-            <p className="text-gray-300 mb-6">
-              Are you sure you want to logout?
-            </p>
-            <div className="space-x-4">
-              <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md">
-                Yes, Logout
-              </button>
-              <button
-                onClick={() => setActiveView("all-devices")}
-                className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-md"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        );
-
       case "all-devices":
         return (
           <>
@@ -113,6 +81,11 @@ const Dashboard: React.FC = () => {
             </div>
             <FilterButtons filters={filters} updateFilter={updateFilter} />;
             <RecievedMessages messages={messages} />
+            <Pagination
+              currentPage={pagination.page}
+              totalPages={pagination.totalPages}
+              onPageChange={handlePageChange}
+            />
           </div>
         );
 
@@ -143,8 +116,6 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="flex h-screen">
-      <SidebarMenu activeView={activeView} onViewChange={setActiveView} />
-
       <div
         className="flex-1 overflow-y-auto overflow-x-hidden"
         style={{

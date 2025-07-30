@@ -8,12 +8,12 @@ export const useActivateSystem = () => {
   });
 
   return {
-    postMessage: mutation.mutate, // Function to trigger the mutation
-    isLoading: mutation.status, // Loading state
-    isPending: mutation.isPending, // Pending state
-    isSuccess: mutation.isSuccess, // Success state
-    isError: mutation.isError, // Error state
-    error: mutation.error, // Error details
-    response:mutation.data as string | undefined, // Response data
+    postMessage: mutation.mutate, 
+    isLoading: mutation.status, 
+    isPending: mutation.isPending, 
+    isSuccess: mutation.isSuccess, 
+    isError: mutation.isError, 
+    error: mutation.error, 
+    response:mutation.data as string | undefined, 
   };
 };

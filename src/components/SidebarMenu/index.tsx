@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   MessageSquare,
   Cpu,
@@ -9,7 +10,7 @@ import {
   X,
 } from "lucide-react";
 import { useSystemStatus } from "../../hooks/useSystemStatus";
-import ToogleSystem from "../commons/Toogle";
+import ToogleSystem from "../commons/ToggleSystem";
 
 // Sidebar Component
 interface SidebarProps {
@@ -20,10 +21,10 @@ interface SidebarProps {
 const SidebarMenu: React.FC<SidebarProps> = ({ activeView, onViewChange }) => {
   const [isOpen, setIsOpen] = useState(true);
   const { status: status, statusLoading: statusLoading } = useSystemStatus();
-  console.log("status", status);
+  const navigate = useNavigate();
   const menuItems = [
     {
-      id: "last-Messages",
+      id: "last-messages",
       label: "Last Messages",
       icon: MessageSquare,
     },
@@ -49,8 +50,9 @@ const SidebarMenu: React.FC<SidebarProps> = ({ activeView, onViewChange }) => {
     },
   ];
 
-  const handleItemClick = (itemId: string) => {
+  const handleNavigation = (itemId: string) => {
     onViewChange(itemId);
+    navigate(`/${itemId}`);
   };
 
   return (
@@ -90,7 +92,7 @@ const SidebarMenu: React.FC<SidebarProps> = ({ activeView, onViewChange }) => {
             return (
               <li key={item.id}>
                 <button
-                  onClick={() => handleItemClick(item.id)}
+                  onClick={() => handleNavigation(item.id)}
                   className={`
                     w-full flex items-center gap-3 px-3 py-3 rounded-lg
                     transition-all duration-200 text-left
