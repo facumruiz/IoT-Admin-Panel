@@ -1,35 +1,35 @@
 import React from "react";
-import { useMemo, useState } from "react";
-import { useMessages } from "../../hooks/useMessages";
 import SidebarMenu from "../SidebarMenu";
 import IoTDeviceTable from "../IoTDeviceTable";
 import SendMessageView from "../SendMessage/SendMessageView";
 import RecievedMessages from "../RecieveMessages";
 import SettingsView from "../SettingsView";
-import { messages } from "../../assets/mockups/message";
 import Loader from "../commons/Loader";
+import { useMessages } from "../../hooks/useMessages";
+import { useDashboardContext } from "../../context/DashboardContext";
+import FilterButtons from "../commons/FilterButtons";
+import Pagination from "../commons/Pagination";
 
 const Dashboard: React.FC = () => {
-  const [activeView, setActiveView] = useState("last-messages");
-  const { messages, loading, error } = useMessages();
+  const { activeView, filters, setFilters } = useDashboardContext();
 
-  console.log("Messages:", messages);
+  const { messages, pagination, loading, isPending, error } = useMessages({
+    ...filters,
+    page: filters.page || 1,
+    limit: filters.limit || 10,
+  });
 
-  // Filter data based on active view
-  const filteredData = useMemo(() => {
-    if (activeView === "last-messages") {
-      // Sort messages by timestamp in descending order and take the last 10
-      return messages
-        .sort(
-          (a, b) =>
-            new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-        )
-        .slice(0, 10);
-    }
-    return messages;
-  }, [activeView, messages]);
+  const handlePageChange = (newPage: number) => {
+    setFilters({ ...filters, page: newPage });
+  };
 
-  console.log("filteredData:", filteredData);
+  const updateFilter = (filterType: "topic" | "sensorType", value: string) => {
+    setFilters({
+      ...filters,
+      topic: filterType === "topic" ? value : "", // Clear topic if selecting sensorType
+      sensorType: filterType === "sensorType" ? value : "", // Clear sensorType if selecting topic
+    });
+  };
 
   const getViewTitle = () => {
     switch (activeView) {
@@ -48,37 +48,6 @@ const Dashboard: React.FC = () => {
 
   const renderContent = () => {
     switch (activeView) {
-      case "send-message":
-        return (
-          <div>
-            <SendMessageView />;
-          </div>
-        );
-
-      case "settings":
-        return <SettingsView />;
-
-      case "logout":
-        // Handle logout logic here
-        return (
-          <div className="text-center">
-            <h2 className="text-white  text-2xl font-bold mb-4">Logout</h2>
-            <p className="text-gray-300 mb-6">
-              Are you sure you want to logout?
-            </p>
-            <div className="space-x-4">
-              <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md">
-                Yes, Logout
-              </button>
-              <button
-                onClick={() => setActiveView("all-devices")}
-                className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-md"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        );
       case "all-devices":
         return (
           <>
@@ -87,38 +56,48 @@ const Dashboard: React.FC = () => {
                 {getViewTitle()}
               </h1>
             </div>
-            <div className="p-6  min-h-screen">
-              <IoTDeviceTable devices={messages} />
+            <div className="p-6 min-h-screen">
+              <IoTDeviceTable
+                devices={messages}
+                pagination={pagination}
+                loading={loading}
+              />
             </div>
           </>
         );
 
-      case "last-Messages":
+      case "last-messages":
         return (
           <div>
             <div className="flex items-center justify-between mb-6">
-              <h1 className="text-white  text-2xl font-bold">
+              <h1 className="text-white text-2xl font-bold">
                 {getViewTitle()}
               </h1>
-              {activeView === "last-Messages" && (
+              {activeView === "last-messages" && (
                 <div className="text-green-400 text-sm">
-                  Showing {filteredData.length} most recent messages
+                  Showing {messages.length} most recent messages
                 </div>
               )}
             </div>
-
-            <RecievedMessages messages={filteredData} />
+            <FilterButtons filters={filters} updateFilter={updateFilter} />;
+            <RecievedMessages messages={messages} />
+            {pagination && (
+              <Pagination
+                currentPage={pagination.page}
+                totalPages={pagination.totalPages}
+                onPageChange={handlePageChange}
+              />
+            )}
           </div>
         );
+
       default:
-        return <RecievedMessages messages={filteredData} />;
+        return;
     }
   };
 
   return (
     <div className="flex h-screen">
-      <SidebarMenu activeView={activeView} onViewChange={setActiveView} />
-
       <div
         className="flex-1 overflow-y-auto overflow-x-hidden"
         style={{
