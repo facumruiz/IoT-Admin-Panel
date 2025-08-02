@@ -141,11 +141,7 @@ const SidebarMenu: React.FC<SidebarProps> = ({ activeView, onViewChange }) => {
       >
         <div className="text-gray-400 text-sm">
           <div className="font-semibold text-white">System Status</div>
-          <div className="flex items-center gap-2 mt-1">
-            <div
-              className="w-2 h-2 rounded-full"
-              style={{ backgroundColor: "#2DD843" }}
-            ></div>
+          <div>
             <ToogleSystem />
           </div>
         </div>

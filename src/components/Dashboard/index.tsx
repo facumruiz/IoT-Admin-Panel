@@ -1,9 +1,6 @@
 import React from "react";
-import SidebarMenu from "../SidebarMenu";
 import IoTDeviceTable from "../IoTDeviceTable";
-import SendMessageView from "../SendMessage/SendMessageView";
 import RecievedMessages from "../RecieveMessages";
-import SettingsView from "../SettingsView";
 import Loader from "../commons/Loader";
 import { useMessages } from "../../hooks/useMessages";
 import { useDashboardContext } from "../../context/DashboardContext";
@@ -13,7 +10,7 @@ import Pagination from "../commons/Pagination";
 const Dashboard: React.FC = () => {
   const { activeView, filters, setFilters } = useDashboardContext();
 
-  const { messages, pagination, loading, isPending, error } = useMessages({
+  const { messages, pagination, loading, error } = useMessages({
     ...filters,
     page: filters.page || 1,
     limit: filters.limit || 10,
@@ -79,7 +76,7 @@ const Dashboard: React.FC = () => {
                 </div>
               )}
             </div>
-            <FilterButtons filters={filters} updateFilter={updateFilter} />;
+            <FilterButtons filters={filters} updateFilter={updateFilter} />
             <RecievedMessages messages={messages} />
           </div>
         );
