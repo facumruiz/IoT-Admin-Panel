@@ -10,7 +10,6 @@ import {
 } from "lucide-react";
 import { Sensor } from "../../types/sensor";
 import { Paginatation } from "../../types/message";
-import Pagination from "../commons/Pagination";
 import { useDashboardContext } from "../../context/DashboardContext";
 
 interface IoTDeviceTableProps {
@@ -198,15 +197,6 @@ const IoTDeviceTable: React.FC<IoTDeviceTableProps> = ({
               No IoT devices found to display.
             </p>
           </div>
-        )}
-      </div>
-      <div className="">
-        {pagination && (
-          <Pagination
-            currentPage={pagination.page}
-            totalPages={pagination.totalPages}
-            onPageChange={handlePageChange}
-          />
         )}
       </div>
     </>

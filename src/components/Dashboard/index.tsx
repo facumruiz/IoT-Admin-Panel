@@ -56,7 +56,7 @@ const Dashboard: React.FC = () => {
                 {getViewTitle()}
               </h1>
             </div>
-            <div className="p-6 min-h-screen">
+            <div>
               <IoTDeviceTable
                 devices={messages}
                 pagination={pagination}
@@ -69,7 +69,7 @@ const Dashboard: React.FC = () => {
       case "last-messages":
         return (
           <div>
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-6 ">
               <h1 className="text-white text-2xl font-bold">
                 {getViewTitle()}
               </h1>
@@ -81,13 +81,6 @@ const Dashboard: React.FC = () => {
             </div>
             <FilterButtons filters={filters} updateFilter={updateFilter} />;
             <RecievedMessages messages={messages} />
-            {pagination && (
-              <Pagination
-                currentPage={pagination.page}
-                totalPages={pagination.totalPages}
-                onPageChange={handlePageChange}
-              />
-            )}
           </div>
         );
 
@@ -106,6 +99,15 @@ const Dashboard: React.FC = () => {
       >
         <div className="p-8 max-w-7xl mx-auto">{renderContent()}</div>
         {loading && <Loader />}
+        <div className="p-8 max-w-7xl mx-auto">
+          {pagination && (
+            <Pagination
+              currentPage={pagination.page}
+              totalPages={pagination.totalPages}
+              onPageChange={handlePageChange}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

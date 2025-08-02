@@ -11,6 +11,16 @@ const QuickCommands: React.FC<QuickCommandsProps> = ({
 }) => {
   const commands = [
     {
+      label: "Get Temperature",
+      topic: "dispositivo/temperatura",
+      message: "read",
+    },
+    {
+      label: "Get Humidity",
+      topic: "dispositivo/humedad",
+      message: "read",
+    },
+    {
       label: "Turn On Relay 1",
       topic: "dispositivo/relay1",
       message: "on",
@@ -20,15 +30,27 @@ const QuickCommands: React.FC<QuickCommandsProps> = ({
       topic: "dispositivo/relay1",
       message: "off",
     },
+
     {
-      label: "Get Temperature",
-      topic: "dispositivo/temperatura",
-      message: "read",
+      label: "Turn On Relay 2",
+      topic: "dispositivo/relay2",
+      message: "on",
     },
     {
-      label: "Get Humidity",
-      topic: "dispositivo/humedad",
-      message: "read",
+      label: "Turn Off Relay 2",
+      topic: "dispositivo/relay2",
+      message: "off",
+    },
+
+    {
+      label: "Turn On Relay 3",
+      topic: "dispositivo/relay3",
+      message: "on",
+    },
+    {
+      label: "Turn Off Relay 3",
+      topic: "dispositivo/relay3",
+      message: "off",
     },
   ];
 
@@ -43,7 +65,7 @@ const QuickCommands: React.FC<QuickCommandsProps> = ({
               setTopic(cmd.topic);
               setMessage(cmd.message);
             }}
-            className="bg-gray-800 hover:bg-gray-700 border border-green-400 text-white text-sm py-2 px-3 rounded-md transition-colors duration-200"
+            className="h-10 px-4 py-2 min-w-[160px] text-center hover:border-emerald-600 bg-gray-900  border-gray-600 border-2  text-white text-sm  rounded-md transition-colors duration-200"
           >
             {cmd.label}
           </button>
