@@ -9,7 +9,6 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import { useSystemStatus } from "../../hooks/useSystemStatus";
 import ToogleSystem from "../commons/ToggleSystem";
 
 // Sidebar Component
@@ -57,17 +56,23 @@ const SidebarMenu: React.FC<SidebarProps> = ({ activeView, onViewChange }) => {
   return (
     <div
       className={`${
-        isOpen ? "w-64" : "w-16"
+        isOpen ? "w-64" : "w-14"
       } transition-all duration-300 ease-in-out flex flex-col h-screen`}
       style={{
         background: "linear-gradient(180deg, #0F160A 0%, #577C38 100%)",
       }}
     >
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-600">
+      <div
+        className={` flex p-4 border-b border-gray-600      ${
+          isOpen
+            ? "items-center justify-between"
+            : "items-center justify-center text-left "
+        }`}
+      >
         <div
           className={`${
-            isOpen ? "block" : "hidden"
+            isOpen ? "block" : "hidden "
           } text-white font-bold text-xl`}
         >
           IoT Dashboard
@@ -93,16 +98,20 @@ const SidebarMenu: React.FC<SidebarProps> = ({ activeView, onViewChange }) => {
                 <button
                   onClick={() => handleNavigation(item.id)}
                   className={`
-                    w-full flex items-center gap-3 px-3 py-3 rounded-lg
-                    transition-all duration-200 text-left
-                    ${
-                      isActive ? "text-white" : "text-gray-300 hover:text-white"
-                    }
+                    w-full flex gap-3 px-3 py-3 rounded-lg
+                    transition-all duration-200 
+
+                       ${
+                         isOpen
+                           ? "items-center"
+                           : "items-center justify-center text-left"
+                       }
                     ${
                       isActive
-                        ? "shadow-lg"
-                        : "hover:bg-white hover:bg-opacity-10"
+                        ? "text-white shadow-lg"
+                        : "text-gray-300 hover:text-white  hover:bg-white hover:bg-opacity-10"
                     }
+                
                     ${isLogout ? "mt-8" : ""}
                   `}
                   style={{
@@ -119,13 +128,15 @@ const SidebarMenu: React.FC<SidebarProps> = ({ activeView, onViewChange }) => {
                       minWidth: "20px",
                     }}
                   />
-                  <span
-                    className={`${
-                      isOpen ? "opacity-100" : "opacity-0 w-0"
-                    } transition-all duration-300 font-medium whitespace-nowrap overflow-hidden`}
-                  >
-                    {item.label}
-                  </span>
+                  {isOpen && (
+                    <span
+                      className={`${
+                        isOpen ? "opacity-100" : "opacity-0 w-0"
+                      } transition-all duration-300 font-medium whitespace-nowrap overflow-hidden`}
+                    >
+                      {item.label}
+                    </span>
+                  )}
                 </button>
               </li>
             );

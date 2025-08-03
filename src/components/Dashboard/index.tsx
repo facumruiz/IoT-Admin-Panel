@@ -71,7 +71,7 @@ const Dashboard: React.FC = () => {
                 {getViewTitle()}
               </h1>
               {activeView === "last-messages" && (
-                <div className="text-green-400 text-sm">
+                <div className="text-green-400 text-[12px] text-right p-2">
                   Showing {messages.length} most recent messages
                 </div>
               )}
@@ -94,9 +94,11 @@ const Dashboard: React.FC = () => {
           background: "linear-gradient(135deg, #0F160A 0%, #577C38 100%)",
         }}
       >
-        <div className="p-8 max-w-7xl mx-auto">{renderContent()}</div>
+        <div className="p-8 md:max-w-7xl sm:max-w-xs xs:max-w-xs">
+          {renderContent()}
+        </div>
         {loading && <Loader />}
-        <div className="p-8 max-w-7xl mx-auto">
+        <div>
           {pagination && (
             <Pagination
               currentPage={pagination.page}

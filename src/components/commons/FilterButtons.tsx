@@ -46,7 +46,7 @@ const FilterButtons: React.FC<FilterButtonsProps> = ({
   // Standardized dimensions
   const controlHeight = "h-10";
   const controlPadding = "px-4 py-2";
-  const controlWidth = "min-w-[160px]";
+  const controlWidth = "min-w-[50px]";
 
   return (
     <div className="flex flex-wrap items-end gap-3 mb-6">
@@ -98,7 +98,7 @@ const FilterButtons: React.FC<FilterButtonsProps> = ({
         <span className="text-sm font-medium text-gray-300">
           Filter by Sensor Type
         </span>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {sensorList.map((sensor) => (
             <button
               key={sensor}
@@ -117,8 +117,8 @@ const FilterButtons: React.FC<FilterButtonsProps> = ({
 
       {/* Clear filters button */}
       <div className="flex flex-col gap-1">
-        <span className="invisible text-sm font-medium text-gray-300">
-          Actions
+        <span className="text-sm font-medium text-gray-300">
+          Remove all filters
         </span>
         <button
           onClick={clearFilters}
