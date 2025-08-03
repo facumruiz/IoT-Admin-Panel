@@ -10,6 +10,7 @@ export const usePostMessage = () => {
   return {
     postMessage: mutation.mutate, // Function to trigger the mutation
     isLoading: mutation.status, // Loading state
+    isPending: mutation.isPending, // Pending state
     isSuccess: mutation.isSuccess, // Success state
     isError: mutation.isError, // Error state
     error: mutation.error, // Error details

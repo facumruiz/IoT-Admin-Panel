@@ -10,7 +10,7 @@ const RecievedMessages: React.FC<RecieveMessagesProps> = ({ messages }) => {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {messages.map((sensor: Message) => (
         <SensorCard
-          key={sensor._id}
+          _id={sensor._id}
           sensorType={sensor.sensorType}
           title={sensor.title ? sensor.title : "No Title"}
           value={sensor.value}

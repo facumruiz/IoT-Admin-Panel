@@ -1,9 +1,6 @@
 import React from "react";
-import SidebarMenu from "../SidebarMenu";
 import IoTDeviceTable from "../IoTDeviceTable";
-import SendMessageView from "../SendMessage/SendMessageView";
 import RecievedMessages from "../RecieveMessages";
-import SettingsView from "../SettingsView";
 import Loader from "../commons/Loader";
 import { useMessages } from "../../hooks/useMessages";
 import { useDashboardContext } from "../../context/DashboardContext";
@@ -13,7 +10,7 @@ import Pagination from "../commons/Pagination";
 const Dashboard: React.FC = () => {
   const { activeView, filters, setFilters } = useDashboardContext();
 
-  const { messages, pagination, loading, isPending, error } = useMessages({
+  const { messages, pagination, loading, error } = useMessages({
     ...filters,
     page: filters.page || 1,
     limit: filters.limit || 10,
@@ -56,7 +53,7 @@ const Dashboard: React.FC = () => {
                 {getViewTitle()}
               </h1>
             </div>
-            <div className="p-6 min-h-screen">
+            <div>
               <IoTDeviceTable
                 devices={messages}
                 pagination={pagination}
@@ -69,25 +66,18 @@ const Dashboard: React.FC = () => {
       case "last-messages":
         return (
           <div>
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-6 ">
               <h1 className="text-white text-2xl font-bold">
                 {getViewTitle()}
               </h1>
               {activeView === "last-messages" && (
-                <div className="text-green-400 text-sm">
+                <div className="text-green-400 text-[12px] text-right p-2">
                   Showing {messages.length} most recent messages
                 </div>
               )}
             </div>
-            <FilterButtons filters={filters} updateFilter={updateFilter} />;
+            <FilterButtons filters={filters} updateFilter={updateFilter} />
             <RecievedMessages messages={messages} />
-            {pagination && (
-              <Pagination
-                currentPage={pagination.page}
-                totalPages={pagination.totalPages}
-                onPageChange={handlePageChange}
-              />
-            )}
           </div>
         );
 
@@ -104,8 +94,19 @@ const Dashboard: React.FC = () => {
           background: "linear-gradient(135deg, #0F160A 0%, #577C38 100%)",
         }}
       >
-        <div className="p-8 max-w-7xl mx-auto">{renderContent()}</div>
+        <div className="p-8 md:max-w-7xl sm:max-w-xs xs:max-w-xs">
+          {renderContent()}
+        </div>
         {loading && <Loader />}
+        <div>
+          {pagination && (
+            <Pagination
+              currentPage={pagination.page}
+              totalPages={pagination.totalPages}
+              onPageChange={handlePageChange}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

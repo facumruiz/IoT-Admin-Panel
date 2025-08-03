@@ -36,11 +36,10 @@ const SensorCard: React.FC<Sensor> = ({
 
   return (
     <div
-      className="bg-black border-green-400 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:border-green-300"
+      className="bg-black border border-green-400 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:border-green-300 max-w-xs sm:max-w-sm md:max-w-md"
       style={{
         overflow: "hidden",
         boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-        borderBottom: "none",
       }}
     >
       {/* Header */}
@@ -57,38 +56,41 @@ const SensorCard: React.FC<Sensor> = ({
       </div>
 
       {/* Main Content */}
-      <div className="p-6 text-center h-60">
+      <div className="p-4 sm:p-6 text-center h-60 min-h-[200px] sm:min-h-[240px]">
         {/* Icon */}
-        <div className="flex justify-center mb-4">
+        <div className="flex justify-center mb-2 sm:mb-4">
           {<CardIcon sensorType={sensorType} status={status} />}
         </div>
 
         {/* Value */}
-        <div className="mb-2">
-          <span className="text-white text-4xl font-bold">
+        <div className="mb-1 sm:mb-2">
+          <span className="text-white text-3xl sm:text-4xl font-bold">
             {getStatusText()}
           </span>
-          {unit && <span className="text-white text-2xl ml-1">{unit}</span>}
+          {unit && (
+            <span className="text-white text-xl sm:text-2xl ml-1">{unit}</span>
+          )}
         </div>
 
         {/* Label */}
-        <div className="text-white text-lg font-medium mb-4">{title}</div>
+        <div className="text-white text-md sm:text-lg font-medium mb-2 sm:mb-4">
+          {title}
+        </div>
 
         {/* Device Name */}
         {deviceName && (
-          <div className="text-gray-400 text-sm mb-2">{deviceName}</div>
+          <div className="text-gray-400 text-xs sm:text-sm mb-1 sm:mb-2">
+            {deviceName}
+          </div>
         )}
       </div>
 
       {/* Footer */}
-      <div
-        className="bg-[#27391C] px-4 py-4"
-        style={{
-          borderTop: "1px solid #27391C",
-        }}
-      >
+      <div className="bg-[#27391C] px-3 sm:px-4 py-3 sm:py-4 border-t border-[#2e4220]">
         <div className="text-green-400 text-xs mb-1">Topic:</div>
-        <div className="text-gray-300 text-xs mb-2 break-all">{topic}</div>
+        <div className="text-gray-300 text-xs mb-1 sm:mb-2 break-all">
+          {topic}
+        </div>
         <div className="text-green-400 text-xs">{timestamp}</div>
       </div>
     </div>

@@ -46,7 +46,11 @@ const ToggleSystem = () => {
   };
 
   return (
-    <div>
+    <div className="flex items-center gap-2 mt-1">
+      <div
+        className="w-2 h-2 rounded-full"
+        style={{ backgroundColor: isOn ? "#2DD843" : "#FFff" }}
+      ></div>
       <label className="inline-flex items-center me-5 cursor-pointer">
         <input
           type="checkbox"
